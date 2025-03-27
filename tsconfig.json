@@ -1,0 +1,27 @@
+{
+  "exclude": [
+    "tests",
+    "node_modules",
+    "dist",
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "types": ["vitest", "node"],
+    "target": "ES2024",
+    "module": "Node16",  // Usar Módulos ES (en lugar de CommonJS)
+    "moduleResolution": "Node16",  // Usar el sistema de resolución de módulos de Node.js
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,  // Mantener para interoperabilidad con CommonJS si es necesario
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "declaration": true,
+    "strictPropertyInitialization": true
+  }
+}

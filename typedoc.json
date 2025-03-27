@@ -1,0 +1,8 @@
+{
+  "entryPoints": [
+    "src/**/*.ts"
+  ],
+  "out": "./docs",
+  "customCss": "./custom-styles.css",
+  "name": "prct09-sockets-funko-app-alu0101349824"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "prct09-sockets-funko-app-alu0101349824",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "build": "tsc-watch --onSuccess",
+    "start": "npm run build && node dist/ejercicio-1/main.js",
+    "doc": "typedoc --out ./docs --customCss custom-styles.css",
+    "test": "vitest run --watch",
+    "coverage": "vitest run --watch --coverage --coverage.exclude=src/index.ts --coverage.exclude=src/index.ts",
+    "prettier": "prettier --write .",
+    "lint": "eslint . --fix"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Laura Álvarez Zamora",
+  "license": "ISC",
+  "description": "Práctica 9 de la asignatura DSI en el curso 2024/2025",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "inquirer": "^12.5.0",
+    "lowdb": "^7.0.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/node": "^22.13.11",
+    "@types/yargs": "^17.0.33",
+    "@vitest/coverage-v8": "^3.0.9",
+    "chalk": "^5.4.1",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-tsdoc": "^0.4.0",
+    "globals": "^16.0.0",
+    "inquirer": "^12.5.0",
+    "lowdb": "^7.0.1",
+    "prettier": "^3.5.3",
+    "tsc-watch": "^6.2.1",
+    "typedoc": "^0.28.1",
+    "typescript-eslint": "^8.27.0",
+    "vitest": "^3.0.9"
+  }
+}
