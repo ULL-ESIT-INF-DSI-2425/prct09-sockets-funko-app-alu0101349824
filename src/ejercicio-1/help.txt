@@ -1,0 +1,9 @@
+npm run cliente -- add --user "alu0101349824" --id 1 --nombre "Classic Sonic" --desc "The best Sonic Funko ever" --tipo "Pop!" --genero "Videojuegos" --franquicia "Sonic" --numero 123 --exclusivo false --carac "Brilla en la oscuridad" --valor 30
+
+npm run cliente -- add --user "alu0101349824" --id 2 --nombre "Goku" --desc "Goku Super Saiyan" --tipo "Ánime" --genero "masculino" --franquicia "Dragon Ball" --numero 111 --exclusivo true --carac "Super Saiyan" --valor 1000
+
+npm run cliente -- read --user "alu0101349824" --id 1
+
+npm run cliente -- list --user "alu0101349824"
+
+npm run cliente -- remove --user "alu0101349824" --id 1
