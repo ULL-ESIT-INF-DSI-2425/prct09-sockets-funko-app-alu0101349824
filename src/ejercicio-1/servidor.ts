@@ -16,6 +16,31 @@ import { Funko } from "./funko.js";
 
 /**
  * Tipo de petición enviada por el cliente.
+ * @remarks
+ * - `tipo`: Tipo de operación a realizar (add, update, remove, list, read).
+ * - `usuario`: Nombre del usuario que realiza la petición.
+ * - `funko`: Objeto Funko a añadir o actualizar (opcional).
+ * - `id`: ID del Funko a eliminar o leer (opcional).
+ * @example
+ * ```ts
+ * const peticion: TipoPeticion = {
+ *   tipo: "add",
+ *   usuario: "usuario1",
+ *   funko: {
+ *     id: 1,
+ *     nombre: "Goku",
+ *     descripcion: "Goku de Dragon Ball Z",
+ *     tipo: "Pop!",
+ *     genero: "Ánime",
+ *     franquicia: "Dragon Ball Z",
+ *     numero: 123,
+ *     exclusivo: true,
+ *     caracteristicasEspeciales: "Brilla en la oscuridad",
+ *     valorMercado: 10.99
+ *   },
+ *   id: undefined // No se usa en "add"
+ * };
+ * ```
  */
 export type TipoPeticion = {
   tipo: "add" | "update" | "remove" | "list" | "read";
@@ -26,6 +51,20 @@ export type TipoPeticion = {
 
 /**
  * Tipo de respuesta enviada por el servidor.
+ * @remarks
+ * - `tipo`: Tipo de operación realizada (add, update, remove, list, read).
+ * - `exito`: Indica si la operación fue exitosa o no.
+ * - `mensaje`: Mensaje descriptivo de la operación.
+ * - `funkos`: Lista de Funkos devuelta (opcional, solo en "list" y "read").
+ * @example
+ * ```ts
+ * const respuesta: TipoRespuesta = {
+ *   tipo: "add",
+ *   exito: true,
+ *   mensaje: "Funko añadido correctamente.",
+ *   funkos: undefined // No se usa en "add"
+ * };
+ * ```
  */
 export type TipoRespuesta = {
   tipo: "add" | "update" | "remove" | "list" | "read";
@@ -34,13 +73,30 @@ export type TipoRespuesta = {
   funkos?: Funko[]; // Se utiliza en "list" y "read"
 };
 
+// Puerto donde el servidor escuchará las conexiones
 const PORT = 60300;
 
+// Crear un servidor TCP que escucha en el puerto especificado y maneja conexiones
 const server = net.createServer((socket) => {
   console.log("Un cliente se ha conectado"); // Mensaje al conectar
-  socket.setEncoding("utf8");
+  socket.setEncoding("utf8"); // Establecer la codificación de los datos a UTF-8
   let buffer = "";
 
+  /**
+   * Manejador de eventos para recibir datos del cliente.
+   * @param data - Datos recibidos del cliente.
+   * @throws Error si hay un problema al parsear el JSON.
+   * @remarks
+   * - Se acumulan los datos en un buffer hasta encontrar un delimitador de salto de línea.
+   * - Se procesan los mensajes completos y se envían respuestas al cliente.
+   * - Se loguean los mensajes recibidos y las respuestas enviadas.
+   * - Se procesan las peticiones delegando en la función `procesarPeticion`.
+   * - Se envían respuestas al cliente con el resultado de la operación.
+   * - Se manejan eventos de desconexión y cierre de conexión.
+   * - Se loguean los errores y mensajes de éxito.
+   * - Se maneja el error de parseo de JSON y se envía una respuesta de error al cliente.
+   * - Se manejan errores de conexión.
+   */
   socket.on("data", (data: string) => {
     buffer += data;
     let index: number;
@@ -72,36 +128,62 @@ const server = net.createServer((socket) => {
         continue;
       }
 
+      /**
+       * Procesar la petición delegando en GestorFunko y llamar al callback con la respuesta.
+       * @param peticion - La petición a procesar.
+       * @param respuesta - Callback que recibe la respuesta.
+       * @remarks
+       * - Se loguea el tipo de operación y el usuario.
+       * - Se procesan las operaciones de añadir, actualizar, eliminar y listar Funkos.
+       * - Se envían respuestas al cliente con el resultado de la operación.
+       * - Se loguean los mensajes de éxito y error.
+       * - Se manejan errores de lectura y escritura de Funkos.
+       * - Se manejan errores de conexión y de parseo de JSON.
+       */
       procesarPeticion(peticion, (respuesta) => {
         // Log de la respuesta que se envía al cliente
         console.log(
           "Enviando respuesta al cliente:",
           JSON.stringify(respuesta, null, 2),
         );
+        // Enviar respuesta al cliente con el resultado de la operación
         socket.write(JSON.stringify(respuesta) + "\n");
       });
     }
   });
 
+  // Manejar el evento de cierre de conexión
   socket.on("end", () => {
     console.log("Un cliente se ha desconectado");
   });
 
+  // Manejar el evento de desconexión
   socket.on("close", () => {
     console.log("Conexión cerrada");
   });
 
+  // Manejar el evento de error de conexión
   socket.on("error", (err) => {
     console.error("Error en la conexión:", err);
   });
 });
 
+// Iniciar el servidor y escuchar en el puerto especificado
 server.listen(PORT, () => {
   console.log(`Servidor Funko escuchando en el puerto ${PORT}`);
 });
 
 /**
  * Procesa la petición delegando en GestorFunko y llama al callback con la respuesta.
+ * @param peticion - La petición a procesar.
+ * @param callback - Callback que recibe la respuesta.
+ * @remarks
+ * - Se loguea el tipo de operación y el usuario.
+ * - Se procesan las operaciones de añadir, actualizar, eliminar y listar Funkos.
+ * - Se envían respuestas al cliente con el resultado de la operación.
+ * - Se loguean los mensajes de éxito y error.
+ * - Se manejan errores de lectura y escritura de Funkos.
+ * - Se manejan errores de conexión y de parseo de JSON.
  */
 function procesarPeticion(
   peticion: TipoPeticion,
@@ -114,6 +196,7 @@ function procesarPeticion(
   );
 
   switch (tipo) {
+    // Añadir un Funko
     case "add":
       if (!funko) {
         callback({
@@ -152,6 +235,7 @@ function procesarPeticion(
       });
       break;
 
+    // Actualizar un Funko
     case "update":
       if (!funko || id === undefined) {
         callback({
@@ -190,6 +274,7 @@ function procesarPeticion(
       });
       break;
 
+    // Eliminar un Funko
     case "remove":
       if (id === undefined) {
         callback({
@@ -210,6 +295,7 @@ function procesarPeticion(
       });
       break;
 
+    // Listar Funkos de un usuario
     case "list":
       GestorFunko.cargarFunkosUsuario(usuario, (lista) => {
         if (lista === undefined) {
@@ -229,6 +315,7 @@ function procesarPeticion(
       });
       break;
 
+    // Leer un Funko específico
     case "read":
       if (id === undefined) {
         callback({
@@ -265,6 +352,7 @@ function procesarPeticion(
       });
       break;
 
+    // Operación no soportada
     default:
       callback({
         tipo,

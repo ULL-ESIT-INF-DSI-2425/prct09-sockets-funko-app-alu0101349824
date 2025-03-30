@@ -12,6 +12,19 @@ import { Funko } from "./funko.js";
 /**
  * Clase para gestionar el almacenamiento de Funkos de un usuario en ficheros JSON.
  * Cada usuario tiene un directorio con su nombre donde se guardan los distintos JSON.
+ * Cada Funko se guarda en un fichero con el nombre <ID>.json.
+ * El ID es único para cada Funko y se usa como nombre del fichero.
+ * El contenido del fichero es el objeto Funko serializado como JSON.
+ * El directorio de cada usuario se crea automáticamente si no existe.
+ * Si el directorio no se puede crear, se devuelve undefined.
+ * Si el directorio ya existe, se usa el existente.
+ * Si el fichero no se puede crear, se devuelve false.
+ * Si el fichero ya existe, se sobrescribe.
+ * Si el Funko no se puede guardar, se devuelve false.
+ * Si el Funko se guarda correctamente, se devuelve true.
+ * Si el Funko no existe, se devuelve false.
+ * Si el Funko se elimina correctamente, se devuelve true.
+ * Si el Funko no se puede eliminar, se devuelve false.
  */
 export class GestorFunko {
   /**
@@ -19,6 +32,7 @@ export class GestorFunko {
    * retornando su ruta en caso de éxito o `undefined` si falla algo.
    * @param usuario - Nombre del usuario
    * @param callback - Devuelve la ruta del directorio o `undefined` si hubo error
+   * @returns void
    */
   public static obtenerDirectorioUsuario(
     usuario: string,
@@ -51,6 +65,7 @@ export class GestorFunko {
    * Carga todos los Funkos de un usuario leyendo todos los ficheros .json de su directorio.
    * @param usuario - Usuario propietario de los Funkos
    * @param callback - Callback que recibe la lista de Funkos o `undefined` si error
+   * @returns void
    */
   public static cargarFunkosUsuario(
     usuario: string,
@@ -121,6 +136,7 @@ export class GestorFunko {
    * @param usuario - Usuario
    * @param funko - Funko a guardar
    * @param callback - Devuelve true si se guardó, false si hubo error
+   * @returns void
    */
   public static guardarFunko(
     usuario: string,
@@ -154,6 +170,7 @@ export class GestorFunko {
    * @param usuario - Usuario
    * @param idFunko - ID del Funko a eliminar
    * @param callback - Devuelve true si se eliminó, false si no existe o hay error
+   * @returns void
    */
   public static eliminarFunko(
     usuario: string,
@@ -168,6 +185,7 @@ export class GestorFunko {
       }
       const rutaFichero = path.join(rutaUsuario, `${idFunko}.json`);
 
+      // Comprobamos si el fichero existe
       fs.unlink(rutaFichero, (errUnlink) => {
         if (errUnlink) {
           // No existe o error => false

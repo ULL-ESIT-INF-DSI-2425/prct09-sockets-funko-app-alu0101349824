@@ -2,6 +2,7 @@
  * @module crear-funko
  * @remarks
  * Contiene lógica para la validación y creación de objetos Funko.
+ * Se encarga de validar las características del Funko y crear el objeto Funko.
  */
 
 import { Funko, TipoFunko, GeneroFunko } from "./funko.js";
