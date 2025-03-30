@@ -7,6 +7,8 @@
 
 import * as fs from "fs";
 import * as path from "path";
+
+// Usamos la interfaz Funko y los demás tipos ya definidos en funko.ts
 import { Funko } from "./funko.js";
 
 /**

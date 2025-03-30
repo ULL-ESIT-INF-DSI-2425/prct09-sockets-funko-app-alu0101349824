@@ -5,15 +5,15 @@ export default defineConfig({
     coverage: {
       all: false,
       include: [
-        "src/ejercicio-1/Funko.ts",
-        "src/ejercicio-1/GestorFunko.ts",
-        "src/ejercicio-1/TiposComandos.ts"
+        "src/ejercicio-1/funko.ts",
+        "src/ejercicio-1/gestor-funko.ts",
+        "src/ejercicio-1/crear-funko.ts",
+        "src/ejercicio-1/cliente.ts",
+        "src/ejercicio-1/servidor.ts",
       ],
       exclude: [
         "src/**/index.ts",
-        "src/**/comandos.ts",
         "src/**/index.spec.ts",
-        "src/**/comandos.spec.ts",
         "**/node_modules/**",
         "**/dist/**"
       ],

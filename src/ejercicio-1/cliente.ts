@@ -17,8 +17,13 @@ import { connect, Socket } from "net";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import chalk from "chalk";
+
+// Importamos los tipos de petición y respuesta del servidor
 import { TipoPeticion, TipoRespuesta } from "./servidor.js";
+// Usamos la interfaz Funko y los demás tipos ya definidos en funko.ts
 import { Funko, TipoFunko, GeneroFunko } from "./funko.js";
+// Importamos la función crearFunko para construir el objeto validado
+import { crearFunko } from "./crear-funko.js";
 
 /**
  * Envía la petición al servidor y procesa la respuesta.
@@ -137,18 +142,18 @@ yargs(hideBin(process.argv))
       },
     },
     (argv) => {
-      const funko: Funko = {
-        id: argv.id,
-        nombre: argv.nombre,
-        descripcion: argv.desc,
-        tipo: argv.tipo as TipoFunko,
-        genero: argv.genero as GeneroFunko,
-        franquicia: argv.franquicia,
-        numero: argv.numero,
-        exclusivo: argv.exclusivo,
-        caracteristicasEspeciales: argv.carac,
-        valorMercado: argv.valor,
-      };
+      const funko = crearFunko(
+        argv.id,
+        argv.nombre,
+        argv.desc,
+        argv.tipo as TipoFunko,
+        argv.genero as GeneroFunko,
+        argv.franquicia,
+        argv.numero,
+        argv.exclusivo,
+        argv.carac,
+        argv.valor,
+      );
 
       const peticion: TipoPeticion = { tipo: "add", usuario: argv.user, funko };
       enviarPeticion(peticion);
@@ -232,18 +237,18 @@ yargs(hideBin(process.argv))
       },
     },
     (argv) => {
-      const funko: Funko = {
-        id: argv.id,
-        nombre: argv.nombre,
-        descripcion: argv.desc,
-        tipo: argv.tipo as TipoFunko,
-        genero: argv.genero as GeneroFunko,
-        franquicia: argv.franquicia,
-        numero: argv.numero,
-        exclusivo: argv.exclusivo,
-        caracteristicasEspeciales: argv.carac,
-        valorMercado: argv.valor,
-      };
+      const funko = crearFunko(
+        argv.id,
+        argv.nombre,
+        argv.desc,
+        argv.tipo as TipoFunko,
+        argv.genero as GeneroFunko,
+        argv.franquicia,
+        argv.numero,
+        argv.exclusivo,
+        argv.carac,
+        argv.valor,
+      );
 
       const peticion: TipoPeticion = {
         tipo: "update",

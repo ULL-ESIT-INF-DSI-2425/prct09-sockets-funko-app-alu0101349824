@@ -5,6 +5,7 @@
  * Se encarga de validar las características del Funko y crear el objeto Funko.
  */
 
+// Usamos la interfaz Funko y los demás tipos ya definidos en funko.ts
 import { Funko, TipoFunko, GeneroFunko } from "./funko.js";
 
 /**

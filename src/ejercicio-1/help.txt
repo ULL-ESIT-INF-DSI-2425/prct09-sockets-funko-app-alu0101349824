@@ -6,4 +6,4 @@ npm run cliente -- read --user "alu0101349824" --id 1
 
 npm run cliente -- list --user "alu0101349824"
 
-npm run cliente -- remove --user "alu0101349824" --id 1
+npm run cliente -- remove --user "alu0101349824" --id 2

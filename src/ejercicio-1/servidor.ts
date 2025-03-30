@@ -11,7 +11,10 @@
  */
 
 import * as net from "net";
+
+// Importamos el gestor de Funkos para manejar la lógica de negocio y la gestión de archivos.
 import { GestorFunko } from "./gestor-funko.js";
+// Usamos la interfaz Funko y los demás tipos ya definidos en funko.ts.
 import { Funko } from "./funko.js";
 
 /**
@@ -215,6 +218,7 @@ function procesarPeticion(
           });
           return;
         }
+        // Comprobamos si el Funko ya existe. Se uso some() para evitar un bucle for y hacer la comprobación más rápida.
         if (lista.some((f) => f.id === funko.id)) {
           callback({
             tipo,
@@ -254,6 +258,7 @@ function procesarPeticion(
           });
           return;
         }
+        // Comprobamos si el Funko existe. Se uso some() para evitar un bucle for y hacer la comprobación más rápida.
         if (!lista.some((f) => f.id === id)) {
           callback({
             tipo,

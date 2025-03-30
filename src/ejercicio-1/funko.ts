@@ -44,16 +44,16 @@ export enum GeneroFunko {
  * @remarks
  * Un Funko es un objeto que se puede coleccionar.
  * Cada Funko tiene:
- * - Un identificador único (id).
- * - Un nombre.
- * - Una descripción.
- * - Un tipo (Pop!, Pop! Rides, etc.).
- * - Un género (Animación, Películas y TV, etc.).
- * - Una franquicia (The Big Bang Theory, Game of Thrones, Sonic The Hedgehog o Marvel: Guardians of the Galaxy, etc.).
- * - Un número identificativo dentro de su franquicia.
- * - Un valor que indica si es exclusivo.
- * - Características especiales (brilla en la oscuridad, su cabeza balancea, etc.).
- * - Un valor de mercado (debe ser positivo).
+ *  - Un identificador único (id).
+ *  - Un nombre.
+ *  - Una descripción.
+ *  - Un tipo (Pop!, Pop! Rides, etc.).
+ *  - Un género (Animación, Películas y TV, etc.).
+ *  - Una franquicia (The Big Bang Theory, Game of Thrones, Sonic The Hedgehog o Marvel: Guardians of the Galaxy, etc.).
+ *  - Un número identificativo dentro de su franquicia.
+ *  - Un valor que indica si es exclusivo.
+ *  - Características especiales (brilla en la oscuridad, su cabeza balancea, etc.).
+ *  - Un valor de mercado (debe ser positivo).
  */
 export interface Funko {
   /**
