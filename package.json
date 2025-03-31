@@ -8,7 +8,7 @@
     "cliente": "node dist/ejercicio-1/cliente.js",
     "doc": "typedoc --out ./docs --customCss custom-styles.css",
     "test": "vitest run --watch",
-    "coverage": "vitest run --watch --coverage --coverage.exclude=src/index.ts --coverage.exclude=src/index.ts",
+    "coverage": "vitest run --watch --coverage --coverage.exclude=src/index.ts",
     "prettier": "prettier --write .",
     "lint": "eslint . --fix"
   },
