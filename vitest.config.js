@@ -6,10 +6,10 @@ export default defineConfig({
       all: false,
       include: [
         "src/ejercicio-1/funko.ts",
-        "src/ejercicio-1/gestor-funko.ts",
-        "src/ejercicio-1/crear-funko.ts",
-        "src/ejercicio-1/cliente.ts",
-        "src/ejercicio-1/servidor.ts",
+        // "src/ejercicio-1/gestor-funko.ts",
+        // "src/ejercicio-1/crear-funko.ts",
+        // "src/ejercicio-1/cliente.ts",
+        // "src/ejercicio-1/servidor.ts",
       ],
       exclude: [
         "src/**/index.ts",
