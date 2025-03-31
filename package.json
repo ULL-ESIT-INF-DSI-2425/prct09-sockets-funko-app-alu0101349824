@@ -4,8 +4,8 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc-watch --onSuccess",
-    "servidor": "node dist/ejercicio-1/servidor.js",
-    "cliente": "node dist/ejercicio-1/cliente.js",
+    "servidor": "node dist/ejercicio-2/servidor-chat.js",
+    "cliente": "node dist/ejercicio-2/cliente-chat.js",
     "doc": "typedoc --out ./docs --customCss custom-styles.css",
     "test": "vitest run --watch",
     "coverage": "vitest run --watch --coverage --coverage.exclude=src/index.ts",
